@@ -19,10 +19,6 @@ npm run dev
 npm run build
 ```
 
-## 📸 Capturas de Pantalla
-
-*(Aquí puedes agregar capturas de tu app funcionando)*
-
 ## ✨ Características
 
 - 🔍 **Búsqueda de usuarios**: Busca cualquier usuario de GitHub
@@ -130,4 +126,4 @@ Proyecto desarrollado como parte de una prueba técnica. ¡Gracias por la oportu
 
 ---
 
-**Desarrollado con ❤️ por [Tu Nombre]**
+**Desarrollado con ❤️ por Santos Luna Arriaga**
