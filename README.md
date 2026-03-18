@@ -1,75 +1,133 @@
-# React + TypeScript + Vite
+# GitHub Repository Finder — Rubidex
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web para buscar repositorios públicos de GitHub por usuario. Desarrollada como prueba técnica con React, TypeScript, TailwindCSS, React Query y Zustand.
 
-Currently, two official plugins are available:
+## 🚀 Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+# Clonar el repositorio
+git clone https://github.com/tu-usuario/github-repo-finder.git
 
-## React Compiler
+# Instalar dependencias
+cd github-repo-finder
+npm install
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+# Ejecutar en desarrollo
+npm run dev
 
-Note: This will impact Vite dev & build performances.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Build para producción
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📸 Capturas de Pantalla
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+*(Aquí puedes agregar capturas de tu app funcionando)*
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## ✨ Características
+
+- 🔍 **Búsqueda de usuarios**: Busca cualquier usuario de GitHub
+- 📋 **Listado de repositorios**: Muestra nombre, descripción, lenguaje y estrellas
+- 🔗 **Enlaces directos**: Cada repo enlaza a GitHub
+- 📜 **Historial persistente**: Las últimas búsquedas se guardan localmente
+- 🎨 **Estados de UI**: Loading, error y resultados vacíos
+- 📱 **Diseño responsivo**: Funciona en móvil, tablet y escritorio
+- ⚡ **Rendimiento**: Caché con React Query, actualizaciones optimizadas
+
+## 🛠️ Stack Tecnológico
+
+- **Frontend**: React 19 + TypeScript
+- **Estilos**: TailwindCSS v4
+- **Estado Global**: Zustand con persistencia
+- **Data Fetching**: TanStack React Query + Axios
+- **Build Tool**: Vite 6
+
+## 📁 Estructura del Proyecto
+
 ```
+src/
+├── components/          # Componentes UI reutilizables
+│   ├── SearchBar.tsx   # Barra de búsqueda
+│   ├── RepoList.tsx    # Contenedor de repositorios
+│   ├── RepoCard.tsx    # Tarjeta individual de repo
+│   ├── HistoryList.tsx # Historial de búsquedas
+│   └── Loader.tsx      # Spinner de carga
+├── hooks/               # Custom hooks
+│   └── useSearchRepos.ts # Lógica de búsqueda con React Query
+├── store/               # Estado global con Zustand
+│   └── historyStore.ts  # Store del historial
+├── types/               # Tipos de TypeScript
+│   ├── repository.ts    # Tipo Repository (con starnumbers)
+│   └── github.ts        # Tipo GitHub API response
+├── pages/               # Páginas
+│   └── Home.tsx         # Página principal
+├── App.tsx              # Componente raíz
+├── main.tsx             # Punto de entrada
+└── index.css            # Estilos globales (Tailwind)
+```
+
+## 🧠 Decisiones Técnicas
+
+### 🔄 **React Query vs Fetch manual**
+- Caché automático de peticiones
+- Estados de loading/error integrados
+- Refetch optimizado
+- Stale-while-revalidate por defecto
+
+### 🎭 **Zustand vs Context API**
+- Más liviano y con menos boilerplate
+- Middleware de persistencia incluido
+- Actualizaciones selectivas (solo componentes que usan el estado)
+- Fácil integración con TypeScript
+
+### 🌐 **Axios vs Fetch nativo**
+- Interceptores para manejo global de errores
+- Tipado automático de respuestas
+- Configuración más limpia (params, headers)
+- Mejor soporte para TypeScript
+
+### 🎨 **TailwindCSS v4**
+- Configuración simplificada (solo @import)
+- Sin necesidad de postcss.config.js
+- Build más rápido
+- Diseño 100% personalizado (sin librerías UI)
+
+### 📱 **Diseño Responsivo**
+- Mobile-first con menú hamburguesa
+- Columnas adaptativas (1/3 - 2/3 en desktop)
+- Overlay en móvil cuando el menú está abierto
+- Breakpoints personalizados para diferentes dispositivos
+
+## 🔍 API de Referencia
+
+```
+GET https://api.github.com/users/{username}/repos
+```
+
+La aplicación consume este endpoint público de GitHub para obtener los repositorios.
+
+## 📦 Scripts Disponibles
+
+- `npm run dev` - Inicia servidor de desarrollo
+- `npm run build` - Build para producción
+- `npm run preview` - Vista previa del build
+- `npm run lint` - Ejecuta ESLint
+
+## 🎯 Funcionalidades Pendientes (Opcionales)
+
+- [ ] Paginación de resultados
+- [ ] Filtro por lenguaje
+- [ ] Ordenamiento por estrellas/fecha
+- [ ] Tema oscuro/claro
+- [ ] Tests unitarios
+
+## 📄 Licencia
+
+MIT
+
+## ✨ Agradecimientos
+
+Proyecto desarrollado como parte de una prueba técnica. ¡Gracias por la oportunidad!
+
+---
+
+**Desarrollado con ❤️ por [Tu Nombre]**
